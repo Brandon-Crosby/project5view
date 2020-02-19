@@ -10,9 +10,10 @@ use Slim\Views\Twig;
 $container = $app->getContainer();
 
 //Routes
-$app->get('/new', function ($request,$response) {
+$app->get('/new', function ($request, $response) {
     // Render index view
-    return $this->view->render($response, 'new.twig', $args);
+    return $this->view->render($response, 'new.twig');
+});
 $app->post('/new', function ($request,$response,$args) {
     //db
     $post = new Post($this->db);
@@ -22,23 +23,16 @@ $app->post('/new', function ($request,$response,$args) {
     $args['date'] = date('m-d-Y');
     //simple validation for input boxes
     if (!empty($args['title']) && !empty($args['date']) && !empty($args['body'])){
-      $results = $post->newPost([$args['title'],$args['date'],$args['body']]);
+      $results = $post->createPost($args['title'],$args['date'],$args['body']);
+    //add to args array
+    $args['posts'] = $results;
     }
     // Render index view
-    return $this->view->render( $response, 'new.twig', $args);
+    //return $this->view->render( $response, 'new.twig', $args);
     $url = $this->router->pathFor('new');
     //return to index
     return $response->withStatus(302)->withHeader('Location', '/');
     })->setName('new');
-
-
-
-
-
-
-});
-
-
 
 
 //get display
