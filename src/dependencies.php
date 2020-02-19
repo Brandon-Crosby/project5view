@@ -1,6 +1,15 @@
 <?php
 // DIC configuration
+// Get container
+$container = $app->getContainer();
 
+// Register component on container (your view or renderer)
+$container['view'] = function ($c) {
+    $settings = $c->get('settings')['renderer'];
+    $view = new \Slim\Views\Twig($settings['template_path']);
+    return $view;
+};
+/*
 $container = $app->getContainer();
 
 //view renderer
@@ -17,7 +26,7 @@ $container['logger'] = function ($c) {
     $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], Monolog\Logger::DEBUG));
     return $logger;
 };
-
+*/
 $container['db'] = function ($c) {
     $db = $c->get('settings')['db'];
     $pdo = new PDO($db['driver'].':'.$db['database']);
