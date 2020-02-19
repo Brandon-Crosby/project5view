@@ -9,8 +9,8 @@ $container['view'] = function ($c) {
     $view = new \Slim\Views\Twig($settings['template_path']);
     return $view;
 };
-/*
-$container = $app->getContainer();
+
+//$container = $app->getContainer();
 
 //view renderer
 $container['renderer'] = function ($c) {
@@ -26,7 +26,7 @@ $container['logger'] = function ($c) {
     $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], Monolog\Logger::DEBUG));
     return $logger;
 };
-*/
+
 $container['db'] = function ($c) {
     $db = $c->get('settings')['db'];
     $pdo = new PDO($db['driver'].':'.$db['database']);
