@@ -6,8 +6,8 @@
         <title>SparkBlog</title>
         <link href='https://fonts.googleapis.com/css?family=Noto+Serif:400,400italic,700|Noto+Sans:700,400' rel='stylesheet' type='text/css'>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/site.css">
+        <link rel="stylesheet" href="../css/normalize.css">
+        <link rel="stylesheet" href="../css/site.css">
     </head>
     <body>
         <header>
@@ -27,7 +27,7 @@
                         <input type="text" name="title" value="{{ post.title }}"><br>
                         <label for="Body">Entry</label>
                         <input type="hidden" name="date" value="{{ post.date }}"><br>
-                        <textarea rows="5" name="body">{{ post.body|raw }}</textarea>
+                        <textarea rows="5" name="body">{{ post.body }}</textarea>
                         <input type="submit" value="Save Entry" class="button">
                         <a href="/detail/{{ post.id }}" class="button button-secondary">Cancel</a>
                     </form>
