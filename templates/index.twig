@@ -25,7 +25,8 @@
   {% for post in posts %}
                     <article>
                         <h2><a href="detail/{{ post.id }}">{{ post.title }}</a></h2>
-                        <time datetime="">{{ post.date('F d, Y') }}</time>
+                        <time>{{ post.date }}</time>
+                        <p><a class="link" href="/edit/{{ post.id }}">Edit Entry</a></p>
                     </article>
     {% endfor %}
                 </div>

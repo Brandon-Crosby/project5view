@@ -56,10 +56,22 @@ $args['comments'] = $comment_results;
     return $this->view->render($response, 'detail.twig', $args);
   })->setName('detail');
 
-
-
-
-
+//Edit Route
+$app->map(['GET', 'POST'], '/edit/{id}', function ($request, $response, $args) {
+    $post = new Post($this->db);
+    $args = array_merge($args, $request->getParsedBody());
+    //$this->logger->info->('/edit');
+    $results = $post->getPost($args['id']);
+    $args['post'] = $results;
+//run only on post
+      if($request->getMethod() == "POST") {
+        $args = array_merge($args, $request->getParsedBody());
+        //Update Post Method
+        $results = $post->updatePost($args['id'], $args['title'], $args['date'], $args['body']);
+        //return Detail
+        return $this->response->withStatus(302)->withHeader('Location', '/detail/'. $args['id'] );
+        } return $this->view->render($response, 'edit.twig', $args);
+    });
 
 
 
