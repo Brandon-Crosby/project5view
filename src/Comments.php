@@ -1,5 +1,5 @@
 <?php
-namespace App\classes;
+namespace App;
 use \PDO;
 
 class Comments
@@ -9,7 +9,7 @@ class Comments
     {
         $this->db = $db;
     }
-    /*public function getComments()
+  /*  public function getComment()
     {
         $results = $this->db->prepare(
             'SELECT * FROM posts ORDER BY id'
@@ -21,12 +21,12 @@ class Comments
         //}
         //return $Comments;
     }*/
-    public function getComments($comment_id)
+    public function getComments($comment_id)//add a Column to Database that $comment_id
     {
         $results = $this->db->prepare(
-            'SELECT * FROM comments WHERE postId= :postId'
+            'SELECT * FROM comments WHERE comment_Id= :comment_Id'
         );
-        $results->bindParam('id', $comment_id);
+        $results->bindParam('comment_id', $comment_id);
         $results->execute();
         return $results->fetchAll(PDO::FETCH_ASSOC);
         /*if (empty($comment)) {
