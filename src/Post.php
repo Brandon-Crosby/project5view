@@ -9,11 +9,12 @@ class Post
     {
         $this->db = $db;
     }
-    public function getPost()
+    public function getPost($id)
     {
         $results = $this->db->prepare(
             'SELECT * FROM posts WHERE id=:id'
         );
+        $results->bindParam('id', $id);
         $results->execute();
         $post = $results->fetch();
         //if (empty($Posts)) {
@@ -37,19 +38,12 @@ class Post
     //Create Journal Entry
     public function createPost($title, $date, $body)
     {
-        //if (empty($data['title']) || empty($data['url'])) {
-            //throw new ApiException(ApiException::Post_INFO_REQUIRED);
-        //}
-        $results = $this->db->prepare(
-            'INSERT INTO Posts(title, url) VALUES(:title, :url)'
-        );
-        $results->bindParam('title', $data['title']);
-        $results->bindParam('url', $data['url']);
+        $results = $this->db->prepare('INSERT INTO posts (title, date, body) VALUES (:title, :date, :body)');
+        $results->bindParam(':title', $title, PDO::PARAM_STR);
+        $results->bindParam(':date', $date, PDO::PARAM_STR);
+        $results->bindParam(':body', $body, PDO::PARAM_STR);
         $results->execute();
-        //if ($sql->rowCount()<1) {
-        //    throw new ApiException(ApiException::Post_CREATION_FAILED);
-        //}
-        return $this->getPosts($this->db->lastInsertId());
+        return true;
     }
     public function updatePost($id,$title,$data, $body)
     {

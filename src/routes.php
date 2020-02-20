@@ -4,7 +4,7 @@ use Slim\App;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use App\Post;
-use App\Comment;
+use App\Comments;
 use Slim\Views\Twig;
 
 $container = $app->getContainer();
@@ -39,6 +39,17 @@ $app->post('/new', function ($request,$response,$args) {
 $app->get('/detail/{id}', function($request, $response, $args){
     //$post = new Post($this->db);
 //Comments
+//$Comment = new Comments($this->db);
+$post = new Post($this->db);
+
+//$this->logger->info->('/detail');
+
+//Comments
+$results = $post->getPost($args['id']);
+$args['post'] = $results;
+//$comment_results = $comment->getComments($args['id']);
+$args['comments'] = $comment_results;
+//$comment_results = $comment;
 
 
 //render detail view
