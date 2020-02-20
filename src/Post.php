@@ -45,7 +45,7 @@ class Post
         $results->execute();
         return true;
     }
-    public function updatePost($id,$title,$data, $body)
+    public function updatePost($id,$title,$date, $body)
     {
         if (empty($data['Post_id']) || empty($data['title']) || empty($data['url'])) {
           //  throw new ApiException(ApiException::Post_INFO_REQUIRED);
@@ -55,7 +55,7 @@ class Post
         );
         $results->bindParam(':id', $data, PDO::PARAM_INT);
         $results->bindParam(':title', $title, PDO::PARAM_STR);
-        $results->bindParam(':date', $data, PDO::PARAM_STR);
+        $results->bindParam(':date', $date, PDO::PARAM_STR);
         $results->bindParam(':body', $body, PDO::PARAM_STR);
         $results->execute();
         //if ($results->rowCount()<1) {

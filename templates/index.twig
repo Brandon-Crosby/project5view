@@ -24,9 +24,8 @@
 
   {% for post in posts %}
                     <article>
-                        <h2><a href="detail/{{ post.id }}">{{ post.title|raw }}</a></h2>
-                        <time datetime="">{{ post.date|date('m-d-Y') }}</time>
-                            <p><a class="link" href= "/edit/{{ post.id }}">Edit Entry</a></p>
+                        <h2><a href="detail/{{ post.id }}">{{ post.title }}</a></h2>
+                        <time datetime="">{{ post.date('F d, Y') }}</time>
                     </article>
     {% endfor %}
                 </div>

@@ -21,7 +21,7 @@ $app->post('/new', function ($request,$response,$args) {
     //post details stored
     $args = array_merge($args, $request->getParsedBody());
     //datefmt_create
-    $args['date'] = date('m-d-Y');
+    $args['date'] = date('Y-m-d');
     //simple validation for input boxes
     if (!empty($args['title']) && !empty($args['date']) && !empty($args['body'])){
       $results = $post->createPost($args['title'],$args['date'],$args['body']);
