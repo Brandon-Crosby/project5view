@@ -65,16 +65,17 @@ $app->map(['GET', 'POST'], '/edit/{id}', function ($request, $response, $args) {
     if($request->getMethod()== "GET"){
 
     $post = new Post($this->db);
-    $args = array_merge($args, $request->getParsedBody());
+    //$args = array_merge($args, $request->getParsedBody());
     //$this->logger->info->('/edit');
     $results = $post->getPost($args['id']);
     $args['post'] = $results;
-    //var_dump($args);
+    var_dump($args);
   }
 //run only on post
       if($request->getMethod() == "POST") {
         $args = array_merge($args, $request->getParsedBody());
         //Update Post Method
+        var_dump($post);
         $results = $post->updatePost($args['id'], $args['title'], $args['date'], $args['body']);
         //return Detail
         //var_dump($args);
