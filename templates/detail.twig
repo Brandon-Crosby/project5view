@@ -38,9 +38,9 @@
               {% if comments %}
                   <h2>Comments</h2>
                     {% for comment in comments %}
-                    <div class="comment">{{ comment}}
-                        <time datetime="{{ comment.date }}">{{ comment.date|date('m-d-Y') }}</time>
-                        <p>{{ comment.body }}</p>
+                    <div class="comment">{{ comments.name }}
+                        <time datetime="{{ comment.date }}">{{ comments.date|date('m-d-Y') }}</time>
+                        <p>{{ comments.body }}</p>
                     </div>
             {% endfor %}
             {% endif %}

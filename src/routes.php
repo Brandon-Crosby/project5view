@@ -39,7 +39,7 @@ $app->post('/new', function ($request,$response,$args) {
 $app->get('/detail/{id}', function($request, $response, $args){
   $post = new Post($this->db);
 //Comments
-  $Comment = new Comments($this->db);
+  $comment = new Comments($this->db);
 //$post = new Post($this->db);
 
 //$this->logger->info->('/detail');
@@ -61,7 +61,7 @@ $app->get('/detail/{id}', function($request, $response, $args){
   $app->post('/detail/{id}', function($request, $response, $args) {
       $args = array_merge($args, $request->getParsedBody());
       // Add Comment
-      $Comment = new Comments($this->db);
+      $comment = new Comments($this->db);
       $Comments = $comment->createComment($args['name'], $args['body'], $args['id']);
       //return to detail page
       return $this->response->withStatus(302)->withHeader('Location', '/detail/'. $args['id']);
