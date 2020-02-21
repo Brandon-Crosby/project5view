@@ -52,7 +52,7 @@ class Comments
         $results = $this->db->prepare('INSERT INTO Comments(name, body, comment_id) VALUES(:name, :body, :comment_id)');
         $results->bindParam(':name', $name, PDO::PARAM_STR);
         $results->bindParam(':body', $body, PDO::PARAM_STR);
-        $results->bindParam(':comment_id', $comment_id, PDO::PARAM_STR);
+        $results->bindParam(':comment_id', $comment_id, PDO::PARAM_INT);
         $results->execute();
         //if ($results->rowCount()<1) {
             //throw new ApiException(ApiException::comment_CREATION_FAILED);

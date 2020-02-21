@@ -37,34 +37,34 @@ $app->post('/new', function ($request,$response,$args) {
 
 //GET detail Twig
 $app->get('/detail/{id}', function($request, $response, $args){
-  $post = new Post($this->db);
+   $post = new Post($this->db);
 //Comments
-  $comment = new Comments($this->db);
+   $comment = new Comments($this->db);
 //$post = new Post($this->db);
 
 //$this->logger->info->('/detail');
 
 //Comments
-  $results = $post->getPost($args['id']);
-  $args['post'] = $results;
+   $results = $post->getPost($args['id']);
+   $args['post'] = $results;
   //$comment_results = $comment->getComments($args['id']);
   //$args['comments'] = $comment_results;
   //$comment_results = $comment;
 
 
 //render detail view
-  return $this->view->render($response, 'detail.twig', $args);
+   return $this->view->render($response, 'detail.twig', $args);
 
-  })->setName('detail');
+   })->setName('detail');
 
 //Name and Comment Post
-  $app->post('/detail/{id}', function($request, $response, $args) {
-      $args = array_merge($args, $request->getParsedBody());
+$app->post('/detail/{id}', function($request, $response, $args) {
+    $args = array_merge($args, $request->getParsedBody());
       // Add Comment
-      $comment = new Comments($this->db);
-      $Comments = $comment->createComment($args['name'], $args['body'], $args['id']);
+    $comment = new Comments($this->db);
+    $createComment = $comment->createComment($args['name'], $args['body'], $args['comment_id'], $args['id']);
       //return to detail page
-      return $this->response->withStatus(302)->withHeader('Location', '/detail/'. $args['id']);
+    return $this->response->withStatus(302)->withHeader('Location', '/detail/'. $args['id']);
     });
 
 //Edit Route
