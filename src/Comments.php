@@ -21,11 +21,17 @@ class Comments
         //}
         //return $Comments;
     }*/
-    public function getComments($comment_id)//add a Column to Database that $comment_id
-    {
-        $results = $this->db->prepare(
-            'SELECT * FROM comments WHERE comment_Id= :comment_Id'
-        );
+
+    /**
+     *
+     * Get all comments
+     *
+     * @param integer $comment_id
+     *
+     * @return $comment
+     */
+    public function getComments($comment_id){
+        $results = $this->db->prepare('SELECT * FROM comments WHERE comment_Id= :comment_Id');
         $results->bindParam('comment_id', $comment_id);
         $results->execute();
         return $results->fetchAll(PDO::FETCH_ASSOC);
@@ -34,25 +40,23 @@ class Comments
         }*/
         return $comment;
     }
-    public function createComment($name, $comment, $comment_id)
-    {
 
-        $results = $this->db->prepare(
-            'INSERT INTO Comments(name, body, comment_id) VALUES(:name, :body, :comment_id)'
-        );
-        $results->bindParam('title', $data['title']);
-        $results->bindParam('url', $data['url']);
+    public function createComment($name, $comment, $comment_id){
+        $results = $this->db->prepare('INSERT INTO Comments(name, body, comment_id) VALUES(:name, :body, :comment_id)');
+        $results->bindParam(':name', $name, PDO::PARAM_STR);
+        $results->bindParam(':body', $body, PDO::PARAM_STR);
+        $results->bindParam(':comment_id', $comment_id, PDO::PARAM_STR);
         $results->execute();
-        if ($results->rowCount()<1) {
+        //if ($results->rowCount()<1) {
             //throw new ApiException(ApiException::comment_CREATION_FAILED);
-        }
+        //}
         return $this->getComments($this->db->lastInsertId());
     }
-    public function updateComment($title, $date, $body)
+  /*  public function updateComment($title, $date, $body)
     {
           /*if (empty($data['comment_id']) || empty($data['title']) || empty($data['url'])) {
             //throw new ApiException(ApiException::comment_INFO_REQUIRED);
-        }*/
+        }
         $results = $this->database->prepare(
             'UPDATE courses SET title=:title, url=:url WHERE id=:id'
         );
@@ -63,10 +67,10 @@ class Comments
         $results->execute();
         /*if ($results->rowCount()<1) {
             //throw new ApiException(ApiException::comment_UPDATE_FAILED);
-        }*/
+        }
         return $this->get_comment($data['comment_id']);
-    }
-    public function delete_Comment($comment_id)
+    }*/
+    /*public function delete_Comment($comment_id)
     {
         $this->getComments($comment_id);
         $results = $this->database->prepare(
@@ -76,7 +80,7 @@ class Comments
         $results->execute();
         /*if ($results->rowCount()<1) {
             //throw new ApiException(ApiException::comment_DELETE_FAILED);
-        }*/
+        }
         return ['message' => 'The comment was deleted'];
-    }
+    }*/
 }

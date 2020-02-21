@@ -39,17 +39,17 @@ $app->post('/new', function ($request,$response,$args) {
 $app->get('/detail/{id}', function($request, $response, $args){
   $post = new Post($this->db);
 //Comments
-//$Comment = new Comments($this->db);
+  $Comment = new Comments($this->db);
 //$post = new Post($this->db);
 
 //$this->logger->info->('/detail');
 
 //Comments
-$results = $post->getPost($args['id']);
-$args['post'] = $results;
-//$comment_results = $comment->getComments($args['id']);
-//$args['comments'] = $comment_results;
-//$comment_results = $comment;
+  $results = $post->getPost($args['id']);
+  $args['post'] = $results;
+  //$comment_results = $comment->getComments($args['id']);
+  //$args['comments'] = $comment_results;
+  //$comment_results = $comment;
 
 
 //render detail view
