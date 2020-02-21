@@ -15,7 +15,7 @@ class Comments
             'SELECT * FROM posts ORDER BY id'
         );
         $results->execute();
-        $Comments = $sql->fetchAll();
+        $Comments = $results->fetchAll();
         //if (empty($Comments)) {
             //throw new ApiException(ApiException::comment_NOT_FOUND, 404);
         //}
@@ -40,8 +40,15 @@ class Comments
         }*/
         return $comment;
     }
-
-    public function createComment($name, $comment, $comment_id){
+   /**
+    *
+    * Get all comments
+    *
+    * @param integer $comment_id
+    *
+    * @return $comment
+    */
+    public function createComment($name, $body, $comment_id){
         $results = $this->db->prepare('INSERT INTO Comments(name, body, comment_id) VALUES(:name, :body, :comment_id)');
         $results->bindParam(':name', $name, PDO::PARAM_STR);
         $results->bindParam(':body', $body, PDO::PARAM_STR);
@@ -50,7 +57,8 @@ class Comments
         //if ($results->rowCount()<1) {
             //throw new ApiException(ApiException::comment_CREATION_FAILED);
         //}
-        return $this->getComments($this->db->lastInsertId());
+        //return $this->getComments($this->db->lastInsertId());
+        return true;
     }
   /*  public function updateComment($title, $date, $body)
     {

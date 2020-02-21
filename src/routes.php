@@ -54,45 +54,41 @@ $app->get('/detail/{id}', function($request, $response, $args){
 
 //render detail view
   return $this->view->render($response, 'detail.twig', $args);
-  // echo '<pre>';
-  // var_dump($args);
-  // echo '</pre>';
 
   })->setName('detail');
+
+//Name and Comment Post
+  $app->post('/detail/{id}', function($request, $response, $args) {
+      $args = array_merge($args, $request->getParsedBody());
+      // Add Comment
+      $Comment = new Comments($this->db);
+      $Comments = $comment->createComment($args['name'], $args['body'], $args['id']);
+      //return to detail page
+      return $this->response->withStatus(302)->withHeader('Location', '/detail/'. $args['id']);
+    });
 
 //Edit Route
 $app->map(['GET', 'POST'], '/edit/{id}', function ($request, $response, $args) {
     if($request->getMethod()== "GET"){
-
-    $post = new Post($this->db);
-    //$args = array_merge($args, $request->getParsedBody());
-    //$this->logger->info->('/edit');
-    $results = $post->getPost($args['id']);
-    $args['post'] = $results;
-    var_dump($args);
-  }
+      $post = new Post($this->db);
+      //$args = array_merge($args, $request->getParsedBody());
+      //$this->logger->info->('/edit');
+      $results = $post->getPost($args['id']);
+      $args['post'] = $results;
+      //var_dump($args);
+    }
 //run only on post
-      if($request->getMethod() == "POST") {
-        $post = new Post($this->db);
-        $args = array_merge($args, $request->getParsedBody());
-        //Update Post Method
-        var_dump($post);
-        $results = $post->updatePost($args['id'], $args['title'], $args['date'], $args['body']);
-        //return Detail
-        //var_dump($args);
-        return $this->response->withStatus(302)->withHeader('Location', '/detail/'. $args['id'] );
-      } return $this->view->render($response, 'edit.twig', $args);
-    });
-
-
-
-
-
-
-//nested array -
-
-
-
+    if($request->getMethod() == "POST") {
+      $post = new Post($this->db);
+      $args = array_merge($args, $request->getParsedBody());
+      //Update Post Method
+      //var_dump($post);
+      $results = $post->updatePost($args['id'], $args['title'], $args['date'], $args['body']);
+      //return Detail
+      //var_dump($args);
+      return $this->response->withStatus(302)->withHeader('Location', '/detail/'. $args['id'] );
+        } return $this->view->render($response, 'edit.twig', $args);
+  });
 //get display
 //default route
 $app->get('/', function($request, $response, $args) {
