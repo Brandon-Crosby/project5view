@@ -7,7 +7,12 @@ $container = $app->getContainer();
 $container['view'] = function ($c) {
     $settings = $c->get('settings')['renderer'];
     $view = new \Slim\Views\Twig($settings['template_path']);
-    return $view;
+  //  $view->addExtension(new \Slim\Views\TwigExtension(
+    ///  $c['router'],
+      //$c['request']->getUri()
+  //  ));
+  //  $view->addExtension(new \Slim\Views\Twig_Extension_Debug());
+  return $view;
 };
 
 //$container = $app->getContainer();

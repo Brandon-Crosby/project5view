@@ -7,7 +7,7 @@ use App\Post;
 use App\Comments;
 use Slim\Views\Twig;
 
-$container = $app->getContainer();
+$container = $app->getContainer(); //
 
 //Routes
 //create and post
@@ -37,10 +37,10 @@ $app->post('/new', function ($request,$response,$args) {
 
 //GET detail Twig
 $app->get('/detail/{id}', function($request, $response, $args){
-    //$post = new Post($this->db);
+  $post = new Post($this->db);
 //Comments
 //$Comment = new Comments($this->db);
-$post = new Post($this->db);
+//$post = new Post($this->db);
 
 //$this->logger->info->('/detail');
 
@@ -48,35 +48,46 @@ $post = new Post($this->db);
 $results = $post->getPost($args['id']);
 $args['post'] = $results;
 //$comment_results = $comment->getComments($args['id']);
-$args['comments'] = $comment_results;
+//$args['comments'] = $comment_results;
 //$comment_results = $comment;
 
 
 //render detail view
-    return $this->view->render($response, 'detail.twig', $args);
+  return $this->view->render($response, 'detail.twig', $args);
+  // echo '<pre>';
+  // var_dump($args);
+  // echo '</pre>';
+
   })->setName('detail');
 
 //Edit Route
 $app->map(['GET', 'POST'], '/edit/{id}', function ($request, $response, $args) {
+    if($request->getMethod()== "GET"){
+
     $post = new Post($this->db);
     $args = array_merge($args, $request->getParsedBody());
     //$this->logger->info->('/edit');
     $results = $post->getPost($args['id']);
     $args['post'] = $results;
+    //var_dump($args);
+  }
 //run only on post
       if($request->getMethod() == "POST") {
         $args = array_merge($args, $request->getParsedBody());
         //Update Post Method
         $results = $post->updatePost($args['id'], $args['title'], $args['date'], $args['body']);
         //return Detail
+        //var_dump($args);
         return $this->response->withStatus(302)->withHeader('Location', '/detail/'. $args['id'] );
-        } return $this->view->render($response, 'edit.twig', $args);
+      } return $this->view->render($response, 'edit.twig', $args);
     });
 
 
 
 
 
+
+//nested array -
 
 
 
