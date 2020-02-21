@@ -73,6 +73,7 @@ $app->map(['GET', 'POST'], '/edit/{id}', function ($request, $response, $args) {
   }
 //run only on post
       if($request->getMethod() == "POST") {
+        $post = new Post($this->db);
         $args = array_merge($args, $request->getParsedBody());
         //Update Post Method
         var_dump($post);

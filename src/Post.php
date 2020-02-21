@@ -42,8 +42,8 @@ class Post
     public function updatePost($id, $title, $date, $body)
     {
         //if (empty($data['Post_id']) || empty($data['title']) || empty($data['url'])        }
-        $results = $this->database->prepare('UPDATE posts SET title=:title, date = :date, body=:body WHERE id=:id');
-        $results->bindParam(':id', $data, PDO::PARAM_INT);
+        $results = $this->db->prepare('UPDATE posts SET title=:title, date=:date, body=:body WHERE id=:id');
+        $results->bindParam(':id', $id, PDO::PARAM_INT);
         $results->bindParam(':title', $title, PDO::PARAM_STR);
         $results->bindParam(':date', $date, PDO::PARAM_STR);
         $results->bindParam(':body', $body, PDO::PARAM_STR);
