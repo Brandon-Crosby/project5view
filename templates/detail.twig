@@ -35,7 +35,6 @@
         </section>
         <section class="entry-comments">
           <div class="container">
-              {% if comments %}
                 <h2>Comments</h2>
                   {% for comment in comments %}
                   <div class="comment">{{ comment.name }}
@@ -43,7 +42,6 @@
                       <p>{{ comment.body }}</p>
                   </div>
                   {% endfor %}
-              {% endif %}
           </div>
               <div class="new-comment">
                 <form method="post" action="/detail/{{ post.id }}">

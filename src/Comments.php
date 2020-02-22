@@ -60,7 +60,7 @@ class Comments
         } catch (\Throwable $th) {
             echo $th->getMessage(), " -- line: " . $th->getLine();
         }
-        return $results->fetchAll(PDO::FETCH_ASSOC);
+        return $results->fetchAll();
         // return true;
     }
    /**
