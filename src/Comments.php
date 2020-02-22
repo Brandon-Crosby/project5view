@@ -54,7 +54,7 @@ class Comments
   */
   public function getComments($comment_id){
         try {
-            $results = $this->db->prepare('SELECT * FROM Comments WHERE comment_Id= :comment_Id');
+            $results = $this->db->prepare('SELECT * FROM Comments WHERE comment_id= :comment_id');
             $results->bindParam(':comment_id', $comment_id, PDO::PARAM_INT);
             $results->execute();
         } catch (\Throwable $th) {

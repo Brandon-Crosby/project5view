@@ -34,17 +34,17 @@
             </div>
         </section>
         <section class="entry-comments">
-            <div class="container">
-              {% if comments is not empty %}
-                  <h2>Comments</h2>
-                    {% for comments in comments %}
-                    <div class="Comments">{{ comments.name }}
-                        <time datetime="{{ comments.date }}">{{ comments.date|date('m-d-Y') }}</time>
-                        <p>{{ comments.body }}</p>
-                    </div>
-            {% endfor %}
-            {% endif %}
-            </div>
+          <div class="container">
+              {% if comments %}
+                <h2>Comments</h2>
+                  {% for comment in comments %}
+                  <div class="comment">{{ comment.name }}
+                      <time datetime="{{ comment.date }}">{{ comment.date|date('m-d-Y') }}</time>
+                      <p>{{ comment.body }}</p>
+                  </div>
+                  {% endfor %}
+              {% endif %}
+          </div>
               <div class="new-comment">
                 <form method="post" action="/detail/{{ post.id }}">
                   <label for="name">Name</label>

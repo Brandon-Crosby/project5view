@@ -42,13 +42,20 @@ $app->get('/detail/{id}', function($request, $response, $args){
 //$this->logger->info->('/detail');
    $args['post'] = $results;
 //Comments
-   $comment = new Comments($this->db);
-   $results = $post->getPost($args['id']);
-   $comment_results = $comment->getComments($args['id']);
+   //$comment = new Comments($this->db);
+   //$results = $post->getPost($args['id']);
+   //$comment_results = $comment->getComments($args['id']);
 //render detail view
-   return $this->view->render($response, 'detail.twig', $args);
-   })->setName('detail');
-
+   //return $this->view->render($response, 'detail.twig', $args);
+   //})->setName('detail');
+   //Comments
+       $comment = new Comments($this->db);
+       $comment_results = $comment->getComments($args['id']);
+       $args['comments'] = $comment_results;
+       // echo $args['comment'];
+       //render detail view
+          return $this->view->render($response, 'detail.twig', $args);
+          })->setName('detail');
 //Name and Comment Post
 $app->post('/detail/{id}', function($request, $response, $args) {
     $args = array_merge($args, $request->getParsedBody());
