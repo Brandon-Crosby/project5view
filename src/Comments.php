@@ -32,7 +32,7 @@ class Comments
      */
     public function getComments($comment_id){
         $results = $this->db->prepare('SELECT * FROM comments WHERE comment_Id= :comment_Id');
-        $results->bindParam('comment_id', $comment_id);
+        $results->bindParam(':comment_id', $comment_id, PDO::PARAM_INT);
         $results->execute();
         return $results->fetchAll(PDO::FETCH_ASSOC);
         /*if (empty($comment)) {

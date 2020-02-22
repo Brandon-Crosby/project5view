@@ -20,15 +20,14 @@ $app->post('/new', function ($request,$response,$args) {
     $post = new Post($this->db);
     //post details stored
     $args = array_merge($args, $request->getParsedBody());
-    //datefmt_create
     $args['date'] = date('Y-m-d');
-    //simple validation for input boxes
+    //validation for input boxes
     if (!empty($args['title']) && !empty($args['date']) && !empty($args['body'])){
       $results = $post->createPost($args['title'],$args['date'],$args['body']);
     //add to args array
     $args['posts'] = $results;
     }
-    // Render index view
+// Render index view
     //return $this->view->render( $response, 'new.twig', $args);
     $url = $this->router->pathFor('new');
     //return to index
@@ -38,23 +37,16 @@ $app->post('/new', function ($request,$response,$args) {
 //GET detail Twig
 $app->get('/detail/{id}', function($request, $response, $args){
    $post = new Post($this->db);
-//Comments
-   $comment = new Comments($this->db);
-//$post = new Post($this->db);
-
-//$this->logger->info->('/detail');
-
-//Comments
+   //$post = new Post($this->db);
    $results = $post->getPost($args['id']);
+//$this->logger->info->('/detail');
    $args['post'] = $results;
-  //$comment_results = $comment->getComments($args['id']);
-  //$args['comments'] = $comment_results;
-  //$comment_results = $comment;
-
-
+//Comments
+   //$comment = new Comments($this->db);
+   $results = $post->getPost($args['id']);
+   //$comment_results = $comment->getComments($args['id']);
 //render detail view
    return $this->view->render($response, 'detail.twig', $args);
-
    })->setName('detail');
 
 //Name and Comment Post
@@ -62,7 +54,7 @@ $app->post('/detail/{id}', function($request, $response, $args) {
     $args = array_merge($args, $request->getParsedBody());
       // Add Comment
     $comment = new Comments($this->db);
-    $createComment = $comment->createComment($args['name'], $args['body'], $args['comment_id'], $args['id']);
+    $createComment = $comment->createComment($args['name'], $args['body'], $args['id']);
       //return to detail page
     return $this->response->withStatus(302)->withHeader('Location', '/detail/'. $args['id']);
     });
