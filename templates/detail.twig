@@ -35,11 +35,11 @@
         </section>
         <section class="entry-comments">
             <div class="container">
-              {% if comments %}
+              {% if comments is not empty %}
                   <h2>Comments</h2>
-                    {% for comment in comments %}
-                    <div class="comment">{{ comments.name }}
-                        <time datetime="{{ comment.date }}">{{ comments.date|date('m-d-Y') }}</time>
+                    {% for comments in comments %}
+                    <div class="Comments">{{ comments.name }}
+                        <time datetime="{{ comments.date }}">{{ comments.date|date('m-d-Y') }}</time>
                         <p>{{ comments.body }}</p>
                     </div>
             {% endfor %}
@@ -49,7 +49,7 @@
                 <form method="post" action="/detail/{{ post.id }}">
                   <label for="name">Name</label>
                   <input type="text" name="name"><br>
-                  <label for="comment">Comment</label>
+                  <label for="comments">Comment</label>
                   <textarea rows="5" name="body"></textarea>
                   <input type="submit" value="Post Comment" class="button">
                   <input type="hidden" name="comment_id" value="{{ detail.id }}" >

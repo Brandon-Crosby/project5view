@@ -22,23 +22,46 @@ class Comments
         //return $Comments;
     }*/
 
-    /**
+    /*
      *
      * Get all comments
      *
      * @param integer $comment_id
      *
      * @return $comment
-     */
+
     public function getComments($comment_id){
         $results = $this->db->prepare('SELECT * FROM comments WHERE comment_Id= :comment_Id');
         $results->bindParam(':comment_id', $comment_id, PDO::PARAM_INT);
         $results->execute();
         return $results->fetchAll(PDO::FETCH_ASSOC);
-        /*if (empty($comment)) {
+        if (empty($comment)) {
             //throw new ApiException(ApiException::comment_NOT_FOUND, 404);
-        }*/
+        }
         return $comment;
+    }
+
+    public function getComments($comment_id) {
+		$sql = "SELECT *
+				FROM comments
+				WHERE post_id = :postId";
+
+			$results = $this->db->prepare($sql);
+			$results->bindParam(':comment_Id', $comment_id, PDO::PARAM_INT);
+			$results->execute();
+			return $results->fetchAll(PDO::FETCH_ASSOC);
+	}
+  */
+  public function getComments($comment_id){
+        try {
+            $results = $this->db->prepare('SELECT * FROM Comments WHERE comment_Id= :comment_Id');
+            $results->bindParam(':comment_id', $comment_id, PDO::PARAM_INT);
+            $results->execute();
+        } catch (\Throwable $th) {
+            echo $th->getMessage(), " -- line: " . $th->getLine();
+        }
+        return $results->fetchAll(PDO::FETCH_ASSOC);
+        // return true;
     }
    /**
     *

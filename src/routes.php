@@ -42,9 +42,9 @@ $app->get('/detail/{id}', function($request, $response, $args){
 //$this->logger->info->('/detail');
    $args['post'] = $results;
 //Comments
-   //$comment = new Comments($this->db);
+   $comment = new Comments($this->db);
    $results = $post->getPost($args['id']);
-   //$comment_results = $comment->getComments($args['id']);
+   $comment_results = $comment->getComments($args['id']);
 //render detail view
    return $this->view->render($response, 'detail.twig', $args);
    })->setName('detail');
@@ -52,12 +52,12 @@ $app->get('/detail/{id}', function($request, $response, $args){
 //Name and Comment Post
 $app->post('/detail/{id}', function($request, $response, $args) {
     $args = array_merge($args, $request->getParsedBody());
-      // Add Comment
+      // Add Comment to db
     $comment = new Comments($this->db);
     $createComment = $comment->createComment($args['name'], $args['body'], $args['id']);
       //return to detail page
     return $this->response->withStatus(302)->withHeader('Location', '/detail/'. $args['id']);
-    });
+    })->setName('detail');
 
 //Edit Route
 $app->map(['GET', 'POST'], '/edit/{id}', function ($request, $response, $args) {
